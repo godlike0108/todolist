@@ -1,140 +1,89 @@
 (function() {
 
-	var filterType = 'all';
-	var itemData = [
-		{
-			done: true,
-			content: 'This is for test',
+	var todolist = {
+		data: [
+			{
+				id: 0,
+				done: false,
+				content: 'This is default item.',
+			},
+			{
+				id: 1,
+				done: false,
+				content: 'This is default item2.',
+			},			
+		],
+
+		renderList: function() {
+			$('.todolist').empty();
+			for(var i = 0; i < todolist.data.length; i++) {
+				$('.todolist')
+					.append(
+						$('<div/>')
+							.addClass(function() {
+								return todolist.data[i].done ? 'list-item complete' : 'list-item'; 
+							})
+							.append(
+								$('<span/>')
+									.addClass('list-done')
+									.text(todolist.data[i].done)
+									.on('click', {id: i}, e => {
+										todolist.completeList(e.data.id);
+									})
+								,
+								$('<span/>')
+									.addClass('.list-content')
+									.text(todolist.data[i].content)
+									.on('click', e => {
+										$(e.currentTarget)
+											.replaceWith(
+												$('<input>')
+													.val($(e.currentTarget).text());
+											)
+											
+									})
+								,
+								$('<span/>')
+									.addClass('.list-delete')
+									.text('Delete')
+									.on('click', {id: i}, e => {
+										todolist.deleteList(e.data.id);
+									})
+							)
+					)			
+			}
+		},
+
+		createList: function() {
+			todolist.data.push(
+				{
+					id: todolist.data.length,
+					done: false,
+					content: $('.add-content').val()
+				}
+			);
+			todolist.renderList();
+		},
+
+		deleteList: function(id) {
+			todolist.data.splice(id, 1);
+			todolist.renderList();
+		},
+
+		completeList: function(id) {
+			todolist.data[id].done = !todolist.data[id].done;
+			todolist.renderList();
+		},
+
+		editList: function(id) {
+
 		}
-	];
 
-	renderList();
+	};
 
-	$('.add-confirm').on('click', () => {
-		createList();
-	});
+	todolist.renderList();
 
-	$('.all').on('click', () => {
-		filterType = 'all';
-		renderList();
-	});
-
-	$('.done').on('click', () => {
-		filterType = true;
-		renderList();
-	});
-
-	$('.undone').on('click', () => {
-		filterType = false;
-		renderList();
-	});		
-
-	// render item data array with tags
-	function renderList() {
-
-		// delete all child
-		$('.todolist').empty();
-
-		// filter before render
-		var filterItemData = filterList(filterType);
-
-
-
-		// render all items out
-		for(var i = 0; i < filterItemData.length; i++) {
-			$('<div/>')
-				.addClass(() => {
-					if(filterItemData[i].done) {
-						return 'list-item complete';
-					} else {
-						return 'list-item';
-					}
-				})
-				.append(
-					$('<span/>')
-						.addClass('list-done')
-						.text(function() {
-							if(filterItemData[i].done) {
-								return 'Done';
-							} else {
-								return 'Ongoing';
-							}
-						})
-						.on('click', e => {
-							completeList($(e.currentTarget).closest('.list-item'));
-						}),
-					$('<span/>')
-						.addClass('list-content')
-						.text(filterItemData[i].content)
-						.on('click', filterItemData[i], e => {
-							editList(e);
-						}),
-					$('<a/>')
-						.attr('href','#')
-						.addClass('list-delete')
-						.text('Delete')
-						.on('click', e => {
-							e.stopPropagation();
-							deleteList(e.currentTarget.closest('.list-item'));
-						})
-				)
-				.appendTo('.todolist');			
-		}
-	}
-
-	// add a new list data into item data array
-	function createList() {
-		itemData.push({
-			done: false,
-			content: $('.add-content').val(),
-		});
-		renderList();
-	}
-
-	// delete a specific list data and its render 
-	function deleteList(target) {
-		// remove data, should before remove rendering
-		itemData.splice($(target).index(), 1);
-		// remove rendering
-		target.remove();		
-	}
-
-	// toggle an existing list between complete and incomplete
-	function completeList(target) {
-		if(!itemData[target.index()].done) {
-			itemData[target.index()].done = true;
-		} else {
-			itemData[target.index()].done = false;
-		}
-		renderList();
-	}
-
-	// edit an existing list
-	function editList(target) {
-		$(target.currentTarget).replaceWith(
-			$('<input/>')
-				.val(target.data.content)
-				.on('keypress', e => {
-					if(e.which == 13) {
-						// edit data
-						itemData[$(e.currentTarget).closest('.list-item').index()].content = $(e.currentTarget).val();
-						renderList();
-					}
-				})
-		);		
-	}
-
-	// filter list before render
-	function filterList(type) {
-		var filteredData;
-		if(typeof type === 'boolean') {
-			filteredData = itemData.filter(data => {
-				return data.done === type;
-			});
-			return filteredData;	
-		} else {
-			return itemData;
-		}
-	}
+	// UI
+	$('.add-confirm').on('click', todolist.createList);
 
 })();
