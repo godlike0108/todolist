@@ -1,37 +1,21 @@
-$space-lg: 2rem;
-$space-md: 1rem;
-$space-sm: 0.5rem;
-$main-bg: #000;
-$complete-bg: green;
-$main-text-color: #FFF;
-$main-border-color: #FFF;
-$delete-color: #000;
+$color-complete: green;
 
-.todolist {
-	padding: $space-md;
-	color: $main-text-color;
-	background: {
-		color: $main-bg;
-	}
-	.list-item {
-		padding: 1rem;
-		border: 1px solid $main-border-color;
-		margin: $space-md;
+.list-item {
+	.list-done {
 		&:hover {
-			border: 3px solid $main-border-color;
-			cursor: pointer;
+			cursor: pointer,
 		}
 	}
-	.complete {
-		background: {
-			color: $complete-bg;
-		}
-	}
-	.delete-button {
+	.list-delete {
 		display: none;
-		color: $main-text-color;
-		background: {
-			color: $delete-color;
-		}
 	}
+	&.complete {
+		color: $color-complete;
+		.list-content {
+			text-decoration: line-through;
+		}
+		.list-delete {
+			display: inline;
+		}
+	}	
 }

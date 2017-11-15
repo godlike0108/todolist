@@ -1,27 +1,20 @@
-/* line 10, ../sass/_layout.scss */
-.todolist {
-  padding: 1rem;
-  color: #FFF;
-  background-color: #000;
-}
-/* line 16, ../sass/_layout.scss */
-.todolist .list-item {
-  padding: 1rem;
-  border: 1px solid #FFF;
-  margin: 1rem;
-}
-/* line 20, ../sass/_layout.scss */
-.todolist .list-item:hover {
-  border: 3px solid #FFF;
+/* line 5, ../sass/_layout.scss */
+.list-item .list-done:hover {
   cursor: pointer;
 }
-/* line 25, ../sass/_layout.scss */
-.todolist .complete {
-  background-color: green;
-}
-/* line 30, ../sass/_layout.scss */
-.todolist .delete-button {
+/* line 9, ../sass/_layout.scss */
+.list-item .list-delete {
   display: none;
-  color: #FFF;
-  background-color: #000;
+}
+/* line 12, ../sass/_layout.scss */
+.list-item.complete {
+  color: green;
+}
+/* line 14, ../sass/_layout.scss */
+.list-item.complete .list-content {
+  text-decoration: line-through;
+}
+/* line 17, ../sass/_layout.scss */
+.list-item.complete .list-delete {
+  display: inline;
 }
