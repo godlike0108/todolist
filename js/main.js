@@ -33,20 +33,26 @@
 							.append(
 								$('<span/>')
 									.addClass('list-done')
-									.text(filteredList[i].done)
+									.text(function() {
+										if(filteredList[i].done) {
+											return 'Done';
+										} else {
+											return 'Ongoing';
+										}
+									})
 									.on('click', {id: i}, e => {
 										todolist.completeList(e.data.id);
 									})
 								,
 								$('<span/>')
-									.addClass('.list-content')
+									.addClass('list-content')
 									.text(filteredList[i].content)
 									.on('click', {id: i}, e => {
 										todolist.editList(e.currentTarget,e.data.id);
 									})
 								,
 								$('<span/>')
-									.addClass('.list-delete')
+									.addClass('list-delete')
 									.text('Delete')
 									.on('click', {id: i}, e => {
 										todolist.deleteList(e.data.id);
@@ -64,6 +70,7 @@
 					content: $('.add-content').val()
 				}
 			);
+			$('.add-content').val('');
 			todolist.renderList();
 		},
 
@@ -78,15 +85,15 @@
 		},
 
 		editList: function(target, id) {
-			$(target)
-				.replaceWith(
-					$('<input>')
-						.val(todolist.data[id].content)
-						.on('blur', {id: id}, e => {
-							todolist.data[e.data.id].content = $(e.currentTarget).val();
-							todolist.renderList();
-						})
-				)
+				var newTag = $('<input>')
+					.val(todolist.data[id].content)
+					.on('blur', {id: id}, e => {
+						todolist.data[e.data.id].content = $(e.currentTarget).val();
+						todolist.renderList();
+					});
+				$(target)
+					.replaceWith(newTag);
+				newTag.focus();
 		},
 
 		filterList: function(datas, cond) {
@@ -109,7 +116,14 @@
 	todolist.renderList();
 
 	// UI
-	$('.add-confirm').on('click', todolist.createList);
+	$('.add-confirm').on('click', () => {
+		if($('.add-content').val() !== '') {
+			$('.add-validate').text('');
+			todolist.createList();
+		} else {
+			$('.add-validate').text('Please input something before adding.');
+		}
+	});
 	$('.all').on('click', () => todolist.toggleFilter('all'));
 	$('.done').on('click', () => todolist.toggleFilter(true));
 	$('.undone').on('click', () => todolist.toggleFilter(false));		

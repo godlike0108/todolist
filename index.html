@@ -12,16 +12,21 @@
 		<link rel="stylesheet" href="css/main.css">
 	</head>
 	<body>
-		<div class="addlist">
-			<input type="text" class="add-content">
-			<a href="#" class="add-confirm">Add</a>
+		<div class="container">
+			<h1>To Do List</h1>
+			<div class="addlist">
+				<input type="text" class="add-content">
+				<a href="#" class="add-confirm">Add</a>
+				<p class="add-validate danger"></p>
+			</div>
+			<div class="filter">
+				<a href="#" class="all">all</a>
+				<a href="#" class="done">Done</a>
+				<a href="#" class="undone">Undone</a>
+			</div>
+			<div class="todolist"></div>
 		</div>
-		<div class="filter">
-			<a href="#" class="all">all</a>
-			<a href="#" class="done">Done</a>
-			<a href="#" class="undone">Undone</a>
-		</div>
-		<div class="todolist"></div>
+
 
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->

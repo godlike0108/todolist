@@ -1,20 +1,46 @@
-/* line 5, ../sass/_layout.scss */
+/* line 6, ../sass/_layout.scss */
+.add-validate {
+  color: red;
+}
+
+/* line 9, ../sass/_layout.scss */
+.list-item {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+/* line 12, ../sass/_layout.scss */
+.list-item .list-done {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+/* line 15, ../sass/_layout.scss */
 .list-item .list-done:hover {
   cursor: pointer;
 }
-/* line 9, ../sass/_layout.scss */
+/* line 19, ../sass/_layout.scss */
 .list-item .list-delete {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  text-align: center;
   display: none;
 }
-/* line 12, ../sass/_layout.scss */
+/* line 27, ../sass/_layout.scss */
+.list-item .list-delete:hover {
+  cursor: pointer;
+  color: lightgreen;
+}
+/* line 32, ../sass/_layout.scss */
 .list-item.complete {
   color: green;
 }
-/* line 14, ../sass/_layout.scss */
+/* line 34, ../sass/_layout.scss */
 .list-item.complete .list-content {
   text-decoration: line-through;
 }
-/* line 17, ../sass/_layout.scss */
+/* line 37, ../sass/_layout.scss */
 .list-item.complete .list-delete {
   display: inline;
 }

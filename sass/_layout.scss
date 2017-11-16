@@ -1,13 +1,33 @@
 $color-complete: green;
+$color-complete-focus: lightgreen;
+$color-invalid: red;
+$color-border: #DDD;
 
+.add-validate {
+	color: $color-invalid;
+}
 .list-item {
-	.list-done {
+	margin: 0.5rem;
+	padding: 0.5rem;
+	.list-done {		
+		margin-left: 1rem;
+		margin-right: 1rem;
 		&:hover {
 			cursor: pointer,
 		}
 	}
 	.list-delete {
+		margin-left: 1rem;
+		margin-right: 1rem;
+		padding: 0.5rem;
+		border: 1px solid $color-border;
+		border-radius: 5px;
+		text-align: center;
 		display: none;
+		&:hover {
+			cursor: pointer;
+			color: $color-complete-focus;
+		}
 	}
 	&.complete {
 		color: $color-complete;
