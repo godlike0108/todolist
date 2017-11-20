@@ -1,131 +1,47 @@
-(function() {
+var addContent = Vue.extend({
+	template: '<div>I am something.</div>',
+});
 
-	var todolist = {
-		filter: 'all',
-		data: [
+var addConfirm = Vue.extend({
+
+});
+
+var listAdd = Vue.extend({
+	template: '<div>Shit<add-content></add-content></div>',
+	components: {
+		'add-content': addContent,
+		'add-confirm': addConfirm,
+	},
+});
+
+var listFilter = {
+
+};
+
+var listItem = {
+
+};
+
+var todolist = new Vue({
+	el: "#todolist",
+
+	data: {
+		listData: [
 			{
 				id: 0,
-				done: false,
-				content: 'This is default item.',
-			},
-			{
-				id: 1,
-				done: false,
-				content: 'This is default item2.',
-			},			
+				content: 'Fishing!'
+			}
 		],
+	},
 
-		renderList: function() {
-			// Wipe out the old data
-			$('.todolist').empty();
-
-			// Filter data before render
-			var filteredList = todolist.filterList(todolist.data, todolist.filter);
-
-			// render the list
-			for(var i = 0; i < filteredList.length; i++) {
-				$('.todolist')
-					.append(
-						$('<div/>')
-							.addClass(function() {
-								return filteredList[i].done ? 'list-item complete' : 'list-item'; 
-							})
-							.append(
-								$('<span/>')
-									.addClass('list-done')
-									.text(function() {
-										if(filteredList[i].done) {
-											return 'Done';
-										} else {
-											return 'Ongoing';
-										}
-									})
-									.on('click', {id: i}, e => {
-										todolist.completeList(e.data.id);
-									})
-								,
-								$('<span/>')
-									.addClass('list-content')
-									.text(filteredList[i].content)
-									.on('click', {id: i}, e => {
-										todolist.editList(e.currentTarget,e.data.id);
-									})
-								,
-								$('<span/>')
-									.addClass('list-delete')
-									.text('Delete')
-									.on('click', {id: i}, e => {
-										todolist.deleteList(e.data.id);
-									})
-							)
-					)			
-			}
+	components: {
+		'list-add': listAdd,
+		'list-filter': {
+			template: '<div>This is list filter.</div>'
 		},
 
-		createList: function() {
-			todolist.data.push(
-				{
-					id: todolist.data.length,
-					done: false,
-					content: $('.add-content').val()
-				}
-			);
-			$('.add-content').val('');
-			todolist.renderList();
-		},
-
-		deleteList: function(id) {
-			todolist.data.splice(id, 1);
-			todolist.renderList();
-		},
-
-		completeList: function(id) {
-			todolist.data[id].done = !todolist.data[id].done;
-			todolist.renderList();
-		},
-
-		editList: function(target, id) {
-				var newTag = $('<input>')
-					.val(todolist.data[id].content)
-					.on('blur', {id: id}, e => {
-						todolist.data[e.data.id].content = $(e.currentTarget).val();
-						todolist.renderList();
-					});
-				$(target)
-					.replaceWith(newTag);
-				newTag.focus();
-		},
-
-		filterList: function(datas, cond) {
-			if(typeof cond === 'boolean') {
-				return datas.filter(data => {
-					return data.done === cond;
-				})			
-			} else {
-				return datas;
-			}
-		},
-
-		toggleFilter: function(cond) {
-			todolist.filter = cond;
-			todolist.renderList();
+		'list-item': {
+			template: '<div>These are list items</div>'
 		}
-
-	};
-
-	todolist.renderList();
-
-	// UI
-	$('.add-confirm').on('click', () => {
-		if($('.add-content').val() !== '') {
-			$('.add-validate').text('');
-			todolist.createList();
-		} else {
-			$('.add-validate').text('Please input something before adding.');
-		}
-	});
-	$('.all').on('click', () => todolist.toggleFilter('all'));
-	$('.done').on('click', () => todolist.toggleFilter(true));
-	$('.undone').on('click', () => todolist.toggleFilter(false));		
-
-})();
+	}
+});
