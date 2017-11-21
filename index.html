@@ -12,20 +12,25 @@
 	<body>
 		
 		<div id="todolist">
-			<list-add>
-				<add-content></add-content>
-				<add-confirm></add-confirm>
-			</list-add>
-			<list-filter>
-				<filter-done></filter-done>
-				<filter-undone></filter-undone>
-				<filter-all></filter-all>
-			</list-filter>
-			<list-item>
-				<list-status></list-status>
-				<list-content></list-content>
-				<list-delete></list-delete>
-			</list-item>
+			<div class="list-add">
+				<p>Create a new Todo:</p>
+				<textarea v-model="preview" class="add-content" placeholder="What to do?"></textarea>
+				<a href="#" @click="createList" class="add-confirm">Add</a>
+			</div>
+			<div class="list-filter">
+				<a href="#" @click="toggleListFilter('Done')" class="list-done">Done</a>
+				<a href="#" @click="toggleListFilter('Ongoing')" class="list-ongoing">Ongoing</a>
+				<a href="#" @click="toggleListFilter('All')" class="list-all">All</a>
+			</div>
+			<p class="preview">{{preview}}</p>
+			<div v-for="(item, index) in listItems" class="list-item">
+				<template v-if="filterList(item)">
+					<span @click="toggleListStatus(index)" :class="{active: item.status === 'Done'}" class="list-status">{{item.status}}</span>
+					<span @click="editList(index)" v-show="!item.onEdit" class="list-content">{{item.content}}</span>
+					<input @blur="editList(index)" v-model="item.content" :value="item.content" v-show="item.onEdit" class="list-edit">
+					<a href="#" @click="deleteList(index)" class="list-delete">Delete</a>
+				</template>
+			</div>
 		</div>
 
 

@@ -1,47 +1,62 @@
-var addContent = Vue.extend({
-	template: '<div>I am something.</div>',
-});
-
-var addConfirm = Vue.extend({
-
-});
-
-var listAdd = Vue.extend({
-	template: '<div>Shit<add-content></add-content></div>',
-	components: {
-		'add-content': addContent,
-		'add-confirm': addConfirm,
-	},
-});
-
-var listFilter = {
-
-};
-
-var listItem = {
-
-};
-
-var todolist = new Vue({
-	el: "#todolist",
-
+var todoList = new Vue({
+	el: '#todolist',
 	data: {
-		listData: [
+		filterCriteria: 'Done',
+		preview: '',
+		listItems: [
 			{
-				id: 0,
-				content: 'Fishing!'
-			}
+				onEdit: false,
+				content: 'Fishing.',
+				status: 'Done',
+			},
+			{
+				onEdit: false,				
+				content: 'Do homework.',
+				status: 'Ongoing',
+			},
+			{
+				onEdit: false,				
+				content: 'Kill Dudi.',
+				status: 'Ongoing',
+			}			
 		],
 	},
-
-	components: {
-		'list-add': listAdd,
-		'list-filter': {
-			template: '<div>This is list filter.</div>'
+	methods: {
+		createList() {
+			this.listItems.push({
+				content: this.preview, 
+				status: 'Ongoing',
+			});
+			this.preview = '';
 		},
-
-		'list-item': {
-			template: '<div>These are list items</div>'
+		deleteList(index) {
+			this.listItems.splice(index, 1);
+		},
+		toggleListStatus: function(index) {
+			if(this.listItems[index].status === 'Done') {
+				this.listItems[index].status = 'Ongoing';
+			} else {
+				this.listItems[index].status = 'Done';
+			}
+		},		
+		filterList(listItem) {
+			if(this.filterCriteria === 'All') {
+				return true;
+			} else {
+				return listItem.status === this.filterCriteria;				
+			}
+		},
+		toggleListFilter(listStatus) {
+			this.filterCriteria = listStatus;
+		},
+		editList(index) {
+			this.listItems[index].onEdit = !this.listItems[index].onEdit;			
+			if(this.listItems[index].onEdit) {
+				this.$nextTick(function() {
+					$('.list-edit')[index].focus();
+				})
+			}
 		}
-	}
+	},
 });
+
