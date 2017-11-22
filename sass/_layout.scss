@@ -1,0 +1,99 @@
+* {
+	box-shadow: 0 0 1px red;
+}
+
+$color-done: green;
+$color-filter-active: rgba(0, 0, 0, 0.2);
+$color-border: #FFF;
+$color-input-bg: #1f232e;
+$color-preview-bg: #000;
+$color-bg: linear-gradient(#34ccdd, #00249E 20%, black 70%);
+$color-text: #FFF;
+$color-link: #6cedff;
+$color-link-hover: #FFF;
+.done {
+	color: $color-done;
+}
+
+body {
+	height: 100vh;
+	color: $color-text;
+	background: {
+		image: $color-bg;
+	}
+}
+
+.todolist {
+	text-align: center;
+	min-width: 280px;
+	max-width: 640px;
+	margin-left: auto;
+	margin-right: auto;
+
+
+	.list-add {
+		margin-bottom: 0.5rem;
+		padding: 0.5rem 1rem;
+		border: 1px solid $color-border;
+		background: {
+			color: $color-input-bg;
+		}
+		.add-content {
+			border: none;
+			width: 80%;
+			padding: 0.2rem 1rem;
+			color: $color-text;
+			outline: none;
+			background: {
+				color: $color-input-bg;
+			}			
+		}
+		.add-confirm {
+			text-align: center;
+			display: inline-block;
+			width: 19%;
+			color: $color-text;
+		}
+	}
+
+	.list-filter {
+		margin-bottom: 0.5rem;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 0.3rem;
+		display: flex;
+		justify-content: space-around;
+		border: 1px solid $color-border;
+		border-radius: 0.3rem;
+		a {
+			color: $color-link;
+			padding: 0.3rem 1rem;
+			&:hover {
+				color: $color-link-hover;
+				text-decoration: none;
+			}
+			&.active {
+				background: $color-filter-active;
+				border: 1px solid $color-border;				
+				border-radius: 0.3rem;				
+			}
+		}
+	}
+
+	.preview {
+		background: {
+			color: $color-preview-bg;
+		}
+		height: 3rem;
+		line-height: 3rem;
+		vertical-align: middle;
+	}
+
+	.list-item {
+		text-align: left;
+		margin-bottom: 0.5rem;
+	}
+
+
+
+}

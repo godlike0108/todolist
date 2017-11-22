@@ -1,7 +1,12 @@
 var todoList = new Vue({
 	el: '#todolist',
 	data: {
-		filterCriteria: 'Done',
+		filterCriteria: 'All',
+		filterClass: {
+			allIsActive: true,
+			doneIsActive: false,
+			ongoingIsActive: false,
+		},
 		preview: '',
 		listItems: [
 			{
@@ -48,6 +53,20 @@ var todoList = new Vue({
 		},
 		toggleListFilter(listStatus) {
 			this.filterCriteria = listStatus;
+			for(var prop in this.filterClass) {
+				this.filterClass[prop] = false;
+			}
+			switch(listStatus) {
+				case 'Ongoing':
+					this.filterClass.ongoingIsActive = true;
+					break;
+				case 'Done':
+					this.filterClass.doneIsActive = true;
+					break;
+				default:
+					this.filterClass.allIsActive = true;
+					break;
+			}
 		},
 		editList(index) {
 			this.listItems[index].onEdit = !this.listItems[index].onEdit;			
@@ -56,7 +75,7 @@ var todoList = new Vue({
 					$('.list-edit')[index].focus();
 				})
 			}
-		}
+		},
 	},
 });
 
