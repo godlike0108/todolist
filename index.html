@@ -25,11 +25,11 @@
 				<a href="#" @click="toggleListFilter('All')" class="list-all" :class="{active: filterClass.allIsActive}">All</a>
 			</div>
 			<p class="preview">{{preview}}</p>
-			<div v-for="(item, index) in listItems" v-show="filterList(item)" class="list-item">
-					<span @click="toggleListStatus(index)" :class="{done: item.status === 'Done'}" class="list-status">{{item.status}}</span>
-					<span @click="editList(index)" v-show="!item.onEdit" class="list-content">{{item.content}}</span>
-					<input @keyup.enter="editList(index)" v-model="item.content" :value="item.content" v-show="item.onEdit" class="list-edit">
-					<a href="#" @click="deleteList(index)" class="list-delete">Delete</a>
+			<div v-for="(item, index) in listItems" v-show="filterList(item)" class="list-item row">
+					<span @click="toggleListStatus(index)" :class="{done: item.status === 'Done'}" class="col-2 list-status">{{item.status}}</span>
+					<span @click="editList(index)" v-show="!item.onEdit" class="col-8 list-content">{{item.content}}</span>
+					<input @keyup.enter="blur"  @blur="editList(index)" v-model="item.content" :value="item.content" v-show="item.onEdit" class="col-8 list-edit">
+					<a href="#" @click="deleteList(index)" class="col-2 list-delete">Delete</a>
 			</div>
 		</div>		
 	</div>

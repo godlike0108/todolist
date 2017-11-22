@@ -84,4 +84,31 @@ body {
 .todolist .list-item {
   text-align: left;
   margin-bottom: 0.5rem;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0.3rem 1rem;
+}
+/* line 98, ../sass/_layout.scss */
+.todolist .list-item .list-status {
+  text-align: center;
+}
+/* line 100, ../sass/_layout.scss */
+.todolist .list-item .list-status:hover {
+  cursor: pointer;
+}
+/* line 104, ../sass/_layout.scss */
+.todolist .list-item .list-edit {
+  border: 1px solid #FFF;
+  background-color: #1f232e;
+  color: #FFF;
+}
+/* line 111, ../sass/_layout.scss */
+.todolist .list-item .list-delete {
+  color: #6cedff;
+  text-align: center;
+}
+/* line 113, ../sass/_layout.scss */
+.todolist .list-item .list-delete:hover {
+  color: #FFF;
+  text-decoration: none;
 }

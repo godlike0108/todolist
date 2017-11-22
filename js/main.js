@@ -76,6 +76,9 @@ var todoList = new Vue({
 				})
 			}
 		},
+		blur(e) {
+			e.target.blur();
+		}
 	},
 });
 

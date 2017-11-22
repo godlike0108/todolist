@@ -92,6 +92,30 @@ body {
 	.list-item {
 		text-align: left;
 		margin-bottom: 0.5rem;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 0.3rem 1rem;
+		.list-status {
+			text-align: center;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		.list-edit {
+			border: 1px solid $color-border;
+			background: {
+				color: $color-input-bg;	
+			}
+			color: $color-text;	
+		}
+		.list-delete {
+			color: $color-link;
+			&:hover {
+				color: $color-link-hover;
+				text-decoration: none;
+			}
+			text-align: center;
+		}
 	}
 
 
